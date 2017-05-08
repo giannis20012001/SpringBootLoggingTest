@@ -26,6 +26,7 @@ public class WelcomeController {
         logger.debug("Welcome {}", "testing");
         logger.info("Hello1");
         logger.error("Hello2");
+        logger.error("Hello3");
         model.put("message", this.message);
 
         return "welcome";
