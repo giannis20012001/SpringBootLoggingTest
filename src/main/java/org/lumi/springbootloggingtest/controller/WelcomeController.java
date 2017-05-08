@@ -24,6 +24,8 @@ public class WelcomeController {
     @RequestMapping("/")
     public String welcome(Map<String, Object> model) {
         logger.debug("Welcome {}", "testing");
+        logger.info("Hello1");
+        logger.error("Hello2");
         model.put("message", this.message);
 
         return "welcome";
