@@ -11,6 +11,6 @@
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="STASH" />
+        <appender-ref ref="stash" />
     </root>
 </configuration>
