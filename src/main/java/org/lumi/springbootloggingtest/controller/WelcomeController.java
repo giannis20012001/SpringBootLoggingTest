@@ -25,7 +25,7 @@ public class WelcomeController {
     public String welcome(Map<String, Object> model) {
         logger.debug("Welcome {}", "testing");
         logger.info("Hello1");
-        logger.error("Hello2");
+        logger.info("Hello2");
         logger.error("Hello3");
         model.put("message", this.message);
 
