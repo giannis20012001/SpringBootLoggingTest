@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true" scan="false">
+<configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>195.46.17.236:4560</destination>
+        <destination>195.46.17.236:5400</destination>
 
         <!-- encoder is required -->
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -19,7 +19,7 @@
                     <pattern>
                         <!-- we can add some custom fields to be sent with all the log entries,
                         to make filtering easier in Logstash or searching with Kibana -->
-                    {
+                        {
                         "appName": "SpringBootLoggingTest",
                         "appVersion": "1.0-SNAPSHOT"
                         }
@@ -35,14 +35,14 @@
     </appender>
 
     <!-- Debugging appender (duplicates the normal log, PLUS any debug messages) -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+   <!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%date{ISO8601} %level{5} %c{3} - %message%n</pattern>
         </encoder>
-    </appender>
+    </appender>-->
     <!---->
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>./log/elk-file.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -55,18 +55,18 @@
         <encoder>
             <pattern>%date{ISO8601} [%thread] %level{5} %c{3} - %message%n</pattern>
         </encoder>
-    </appender>
+    </appender>-->
 
     <logger name="org.lumi.springbootloggingtest.elk.testdata" level="INFO" additivity="false">
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="CONSOLE"/>
+        <!--<appender-ref ref="FILE"/>-->
+        <!--<appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="STASH"/>
     </logger>
 
     <!-- ROOT logger setup -->
-    <root>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="CONSOLE"/>
+    <root level="INFO">
+        <!--<appender-ref ref="FILE"/>-->
+        <!--<appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="STASH"/>
     </root>
 </configuration>
