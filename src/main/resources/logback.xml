@@ -21,6 +21,7 @@
                         to make filtering easier in Logstash or searching with Kibana -->
                         {
                         "appName": "SpringBootLoggingTest",
+                        "serviceName": "SpringBootLoggingTest-service",
                         "appVersion": "1.0-SNAPSHOT"
                         }
                     </pattern>
@@ -28,7 +29,7 @@
                 <threadName/>
                 <message/>
                 <logstashMarkers/> <!-- Useful so we can add extra information for specific log lines as Markers-->
-                <arguments/> <!--or through StructuredArguments-->
+                <!--<arguments/>--> <!--or through StructuredArguments-->
                 <stackTrace/>
             </providers>
         </encoder>
@@ -57,15 +58,28 @@
         </encoder>
     </appender>-->
 
-    <logger name="org.lumi.springbootloggingtest.elk.testdata" level="INFO" additivity="false">
-        <!--<appender-ref ref="FILE"/>-->
-        <!--<appender-ref ref="CONSOLE"/>-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./log/elk-file.log</file>
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>1</maxIndex>
+            <fileNamePattern>${LOG_PATH}.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>1MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--<logger name="org.lumi.springbootloggingtest.logger" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+        &lt;!&ndash;<appender-ref ref="CONSOLE"/>&ndash;&gt;
         <appender-ref ref="STASH"/>
-    </logger>
+    </logger>-->
 
     <!-- ROOT logger setup -->
     <root level="INFO">
-        <!--<appender-ref ref="FILE"/>-->
+        <appender-ref ref="FILE"/>
         <!--<appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="STASH"/>
     </root>
