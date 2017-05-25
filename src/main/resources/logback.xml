@@ -5,7 +5,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
     <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>195.46.17.236:5400</destination>
+        <destination>192.168.7.50:5000</destination>
 
         <!-- encoder is required -->
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -29,7 +29,7 @@
                 <threadName/>
                 <message/>
                 <logstashMarkers/> <!-- Useful so we can add extra information for specific log lines as Markers-->
-                <!--<arguments/>--> <!--or through StructuredArguments-->
+                <arguments/> <!--or through StructuredArguments-->
                 <stackTrace/>
             </providers>
         </encoder>
@@ -58,7 +58,7 @@
         </encoder>
     </appender>-->
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>./log/elk-file.log</file>
         <append>true</append>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
@@ -69,18 +69,18 @@
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>1MB</MaxFileSize>
         </triggeringPolicy>
-    </appender>
+    </appender>-->
 
-    <!--<logger name="org.lumi.springbootloggingtest.logger" level="INFO" additivity="false">
-        <appender-ref ref="FILE"/>
+    <!--<logger name="org.springframework.web" level="INFO" additivity="false">
         &lt;!&ndash;<appender-ref ref="CONSOLE"/>&ndash;&gt;
+        <appender-ref ref="FILE"/>
         <appender-ref ref="STASH"/>
     </logger>-->
 
     <!-- ROOT logger setup -->
     <root level="INFO">
-        <appender-ref ref="FILE"/>
         <!--<appender-ref ref="CONSOLE"/>-->
+        <!--<appender-ref ref="FILE"/>-->
         <appender-ref ref="STASH"/>
     </root>
 </configuration>
